@@ -88,6 +88,8 @@ module Paranoia
   # insert time to paranoia column.
   # @param with_transaction [Boolean] exec with ActiveRecord Transactions.
   def touch_paranoia_column(with_transaction=false)
+    return if new_record?
+    
     if with_transaction
       with_transaction_returning_status { touch(paranoia_column) }
     else
