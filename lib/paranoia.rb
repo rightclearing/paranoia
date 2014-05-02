@@ -173,7 +173,7 @@ module ActiveRecord
       protected
       def build_relation_with_paranoia(klass, table, attribute, value)
         relation = build_relation_without_paranoia(klass, table, attribute, value)
-        relation = relation.and(klass.arel_table[:deleted_at].eq(nil)) if klass.column_names.include?(:deleted_at)
+        relation = relation.and(klass.arel_table[:deleted_at].eq(nil)) if klass.column_names.map(&:to_sym).include?(:deleted_at)
         relation
       end
       alias_method_chain :build_relation, :paranoia
